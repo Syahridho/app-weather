@@ -79,7 +79,7 @@ const Home = () => {
         <div className="flex overflow-x-auto space-x-4 px-4 w-full no-scroll md:justify-between">
           {!isLoading
             ? forecasts.map((forecast: any) => (
-                <CardForecast forecast={forecast} />
+                <CardForecast key={forecast.dt} forecast={forecast} />
               ))
             : null}
         </div>

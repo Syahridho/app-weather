@@ -9,7 +9,6 @@ import Hero from "../../container/Hero";
 const Home = () => {
   const [weather, setWeather] = useState<any>();
   const [forecasts, setForecasts] = useState<any>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   const debounnceSearch = useCallback(
     debounnce(async (value: string) => {
@@ -24,14 +23,12 @@ const Home = () => {
   );
 
   useEffect(() => {
-    setIsLoading(true);
     const getAPI = async () => {
       try {
         const data = await getData();
         const forecastData = await getForecast();
         setWeather(data);
         setForecasts(forecastData);
-        setIsLoading(false);
       } catch (error) {
         console.error("error", error);
       }
@@ -45,7 +42,6 @@ const Home = () => {
       <div className="container mx-auto max-w-[750px]">
         <div className="mx-4 mt-4 mb-2">
           <h1 className="text-3xl mb-4 font-semibold">Perkiraan Cuaca</h1>
-
           <Input
             type="text"
             className="border w-full p-2 rounded"
@@ -55,9 +51,9 @@ const Home = () => {
             placeholder="city"
           />
         </div>
-        {!isLoading ? (
+        <Hero weather={weather} />
+        {weather ? (
           <>
-            <Hero weather={weather} />
             <div className="flex my-4 text-sm md:text-base">
               <div className="p-4 border w-1/2 ms-4 me-2 rounded shadow bg-white">
                 <div>
@@ -75,15 +71,26 @@ const Home = () => {
             </div>
           </>
         ) : (
-          <div className="flex justify-center text-slate-500">Loading...</div>
+          <div className="flex mx-4 mb-4 gap-4">
+            <div className="w-1/2 h-[100px] bg-slate-200 rounded shadow animate-pulse border"></div>
+            <div className="w-1/2 h-[100px] bg-slate-200 rounded shadow animate-pulse border"></div>
+          </div>
         )}
 
         <div className="flex overflow-x-auto space-x-4 px-4 w-full no-scroll md:justify-between">
-          {!isLoading
-            ? forecasts.map((forecast: any) => (
-                <CardForecast key={forecast.dt} forecast={forecast} />
-              ))
-            : null}
+          {forecasts.length > 0 ? (
+            forecasts.map((forecast: any) => (
+              <CardForecast key={forecast.dt} forecast={forecast} />
+            ))
+          ) : (
+            <>
+              <div className="flex-shrink-0 w-28 animate-pulse bg-slate-200 h-[140px] rounded shadow border"></div>
+              <div className="flex-shrink-0 w-28 animate-pulse bg-slate-200 h-[140px] rounded shadow border"></div>
+              <div className="flex-shrink-0 w-28 animate-pulse bg-slate-200 h-[140px] rounded shadow border"></div>
+              <div className="flex-shrink-0 w-28 animate-pulse bg-slate-200 h-[140px] rounded shadow border"></div>
+              <div className="flex-shrink-0 w-28 animate-pulse bg-slate-200 h-[140px] rounded shadow border"></div>
+            </>
+          )}
         </div>
 
         <Footer />

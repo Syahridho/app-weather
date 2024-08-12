@@ -24,7 +24,6 @@ export const getForecast = async (query = "Pekanbaru") => {
       const date = new Date(item.dt * 1000);
       return date.getUTCHours() === 6;
     });
-    console.log(forecastAT6AM);
 
     return forecastAT6AM;
   } catch (error) {

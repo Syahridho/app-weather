@@ -44,6 +44,8 @@ const Home = () => {
     <>
       <div className="container mx-auto max-w-[750px]">
         <div className="mx-4 mt-4 mb-2">
+          <h1 className="text-3xl mb-4 font-semibold">Perkiraan Cuaca</h1>
+
           <Input
             type="text"
             className="border w-full p-2 rounded"
@@ -55,7 +57,7 @@ const Home = () => {
         </div>
         {!isLoading ? (
           <>
-            <Hero />
+            <Hero weather={weather} />
             <div className="flex my-4 text-sm md:text-base">
               <div className="p-4 border w-1/2 ms-4 me-2 rounded shadow bg-white">
                 <div>

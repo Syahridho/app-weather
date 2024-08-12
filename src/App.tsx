@@ -44,7 +44,6 @@ const App = () => {
         const data = await getData();
         const forecastData = await getForecast();
         console.log(forecastData);
-        // console.log(data);
         setWeather(data);
         setForecasts(forecastData);
         setIsLoading(false);
@@ -75,25 +74,25 @@ const App = () => {
                 alt={weather.name}
                 className=""
               />
-              <div className="xl:w-">
-                <h1 className="font-semibold">
+              <div className="xl:w-full">
+                <h1 className="font-semibold text-nowrap">
                   Cuaca di {weather && weather.name}
                 </h1>
                 <h3>{translateWeather(weather.weather[0].description)}</h3>
               </div>
             </div>
 
-            <h3 className="m-4 font-bold text-2xl text-slate-500">
+            <h3 className="m-4 font-bold text-lg md:text-2xl text-slate-500">
               {(weather.main.temp - 273.15).toFixed(1)}°C
             </h3>
           </div>
-          <div className="flex my-4">
+          <div className="flex my-4 text-sm md:text-base">
             <div className="p-4 border w-1/2 ms-4 me-2 rounded shadow bg-white">
               <div>
                 Terasa seperti: {(weather.main.feels_like - 273.15).toFixed(2)}
                 °C
               </div>
-              <div className="">Kelembaban : {weather.main.humidity}%</div>
+              <div>Kelembaban : {weather.main.humidity}%</div>
             </div>
             <div className="border w-1/2 ms-2 me-4 rounded p-4 shadow bg-white">
               <div>Kecepatan Angin : {weather.wind.speed} m/detik</div>
@@ -105,7 +104,7 @@ const App = () => {
         <div className="flex justify-center text-slate-500">Loading...</div>
       )}
 
-      <div className="flex overflow-x-auto space-x-4 px-4 w-full">
+      <div className="flex overflow-x-auto space-x-4 px-4 w-full no-scroll xl:justify-center">
         {!isLoading
           ? forecasts.map((forecast: any) => (
               <div
